@@ -3,7 +3,6 @@ package io.nermindedovic.securitycbs;
 import org.apache.kafka.common.config.AbstractConfig;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.common.security.auth.AuthenticateCallbackHandler;
-import org.apache.kafka.common.utils.Utils;
 
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.NameCallback;
@@ -12,7 +11,6 @@ import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.AppConfigurationEntry;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -28,7 +26,7 @@ public class ClientPasswordVerifier implements AuthenticateCallbackHandler {
 
     /**
      *
-     * @param map config entry's passed into client props : sasl.jaas.config
+     * @param map all properties that client is configured with. Referenced in notes/ClientPasswordVerifier-map-output.txt
      * @param s == what has been passed for prop sasl.mechanism (in our case, PLAIN)
      * @param list contains one entry - file=path/to/file (client-cb-passwds.props)
      */
