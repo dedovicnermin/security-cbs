@@ -1,10 +1,10 @@
 # Purpose 
 The purpose of this repo is to show how one can avoid passing in plaintext credentials
-within `server.properties`, as well as during client authentication. 
+within `server.properties`, as well as during initial client authentication check. 
 
 Kafka allows us to specify server callback handlers, which is the mechanism that brokers will use to  determine whether credentials given by the client are authentic or not. In this example, we pass in multiple encrypted flat-files into the brokers `sasl.jaas.config` and the path to the callback handler. The implementation shows that on each intial client connection established, the handler will be invoked by the broker, and the callback queries the given files to verify an entry exists. If it does, we allow the client to establish the connection.
 
-Kafka also allows us to specify client callback handlers to load passwords dynamically at runtime when a connection is established instead of loading statically from the JAAS configuration during startup. Clients don't have to pass in plaintext passwords, and can instead specify the file which holds client credentials (`clientCB.properites`)
+Kafka also allows us to specify client callback handlers to load passwords dynamically at runtime when a connection is established instead of loading statically from the JAAS configuration during startup. Clients don't have to pass in plaintext passwords, and can instead specify the file which holds client credentials (`clientCB.properties` passes in the path to the file holding its credentials)
 
 
 
@@ -15,7 +15,7 @@ Kafka also allows us to specify client callback handlers to load passwords dynam
 - re-enter password
 
 ### manually verify 
-- `htpassword -vb <filename>.props <username> <password>`
+- `htpasswd -vb <filename>.props <username> <password>`
 - should return `Password for user <username> is correct`
 - this exact call will be made my server callback handler to determine authentic credentials
 
